@@ -5,597 +5,220 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>医笔捷功能更新</title>
   <meta name="description" content="医笔捷安卓、小程序、iOS 功能更新记录页，按最新日期展示产品更新、优化与修复内容。">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f7f2ea;
       --bg-accent: #e4efe8;
       --ink: #1f1f1d;
       --muted: #5a5a55;
+      --card: rgba(255, 255, 255, 0.88);
       --line: rgba(31, 31, 29, 0.12);
-      --card: rgba(255, 255, 255, 0.86);
-      --card-strong: rgba(255, 255, 255, 0.94);
       --primary: #e66a2c;
-      --primary-dark: #c24d1a;
-      --mint: #2f8f67;
-      --blue: #2d6cdf;
-      --violet: #6c4fd3;
       --shadow: 0 24px 60px rgba(40, 32, 24, 0.14);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
       color: var(--ink);
-      font-family: "Crimson Pro", "Times New Roman", serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
       background:
         radial-gradient(1000px 700px at 15% 10%, #fff7e6 0%, rgba(255, 255, 255, 0) 60%),
         radial-gradient(1200px 900px at 90% 15%, var(--bg-accent) 0%, rgba(255, 255, 255, 0) 65%),
         var(--bg);
     }
-
-    a {
-      color: inherit;
-    }
-
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      opacity: 0.58;
-      filter: blur(3px);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .orb.one {
-      width: 240px;
-      height: 240px;
-      top: -48px;
-      right: 12%;
-      background: radial-gradient(circle at 30% 30%, #ffd9b8, rgba(255, 255, 255, 0));
-    }
-
-    .orb.two {
-      width: 340px;
-      height: 340px;
-      bottom: -80px;
-      left: -60px;
-      background: radial-gradient(circle at 30% 30%, #bfe1d2, rgba(255, 255, 255, 0));
-    }
-
     .page {
-      position: relative;
-      z-index: 1;
       max-width: 1120px;
       margin: 0 auto;
       padding: 72px 24px 84px;
     }
-
-    .badge,
-    .platform-pill,
-    .tag,
-    .stat-label,
-    .filter-button,
-    .version-name,
-    .footer-link {
-      font-family: "Space Grotesk", "Helvetica Neue", sans-serif;
+    .hero,
+    .toolbar,
+    .entry {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
     }
-
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.8fr);
       gap: 24px;
-      align-items: stretch;
+      padding: 28px;
     }
-
-    .hero-card,
-    .panel,
-    .entry,
-    .stats-card {
-      background: var(--card);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-
-    .hero-main {
-      padding: 30px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hero-main::after {
-      content: "";
-      position: absolute;
-      inset: auto -50px -70px auto;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(230, 106, 44, 0.18), rgba(230, 106, 44, 0));
-      pointer-events: none;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: rgba(230, 106, 44, 0.12);
-      color: var(--primary-dark);
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    h1,
-    h2,
-    h3 {
-      margin: 0;
-      font-family: "Space Grotesk", "Helvetica Neue", sans-serif;
-      letter-spacing: -0.03em;
-    }
-
-    h1 {
-      margin-top: 18px;
-      font-size: clamp(2.8rem, 5vw, 4.4rem);
+    .hero h1 {
+      margin: 16px 0 0;
+      font-size: clamp(2.8rem, 5vw, 4.3rem);
       line-height: 0.98;
-      max-width: 9ch;
     }
-
-    .hero-text {
-      margin-top: 18px;
+    .hero p {
+      margin-top: 16px;
       max-width: 34rem;
       color: var(--muted);
-      font-size: 1.1rem;
-      line-height: 1.65;
+      font-size: 1.05rem;
+      line-height: 1.7;
     }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 28px;
-    }
-
-    .button,
-    .ghost-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: 12px 18px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-family: "Space Grotesk", "Helvetica Neue", sans-serif;
-      font-weight: 600;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-
-    .button {
-      background: var(--primary);
-      color: #fff;
-      box-shadow: 0 14px 30px rgba(230, 106, 44, 0.28);
-    }
-
-    .ghost-button {
-      border: 1px solid rgba(31, 31, 29, 0.18);
-      color: var(--ink);
-      background: rgba(255, 255, 255, 0.55);
-    }
-
-    .button:hover,
-    .ghost-button:hover,
-    .filter-button:hover {
-      transform: translateY(-2px);
-    }
-
-    .hero-side {
-      padding: 24px;
+    .hero-grid {
       display: grid;
       gap: 14px;
     }
-
-    .stats-card {
-      padding: 18px 18px 20px;
-      background: var(--card-strong);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(31, 31, 29, 0.08);
-      box-shadow: none;
+    .stat-card {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid var(--line);
     }
-
     .stat-label {
-      color: var(--muted);
       font-size: 12px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      color: var(--muted);
     }
-
     .stat-value {
       margin-top: 10px;
-      font-family: "Space Grotesk", "Helvetica Neue", sans-serif;
       font-size: 1.9rem;
       font-weight: 700;
-      letter-spacing: -0.04em;
     }
-
     .stat-note {
       margin-top: 6px;
       color: var(--muted);
-      font-size: 14px;
       line-height: 1.5;
+      font-size: 14px;
     }
-
     .toolbar {
       margin-top: 28px;
       padding: 18px;
     }
-
     .toolbar-top {
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
       justify-content: space-between;
       gap: 12px;
+      flex-wrap: wrap;
     }
-
-    .toolbar-title {
-      font-size: 1.35rem;
-    }
-
-    .toolbar-note {
-      color: var(--muted);
-      font-size: 15px;
-    }
-
     .filters {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 16px;
     }
-
     .filter-button {
-      border: 1px solid rgba(31, 31, 29, 0.12);
-      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
       color: var(--ink);
       border-radius: 999px;
       padding: 10px 14px;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
-
     .filter-button.is-active {
       background: var(--ink);
       color: #fff;
       border-color: var(--ink);
-      box-shadow: 0 12px 24px rgba(31, 31, 29, 0.16);
     }
-
     .timeline {
-      position: relative;
-      margin-top: 28px;
-      padding-left: 34px;
       display: grid;
       gap: 18px;
+      margin-top: 28px;
     }
-
-    .timeline::before {
-      content: "";
-      position: absolute;
-      top: 6px;
-      bottom: 6px;
-      left: 12px;
-      width: 2px;
-      background: linear-gradient(180deg, rgba(230, 106, 44, 0.8), rgba(31, 31, 29, 0.12));
-    }
-
     .entry {
-      position: relative;
-      padding: 24px 24px 22px;
-      border-radius: var(--radius-lg);
+      padding: 22px 24px;
     }
-
-    .entry::before {
-      content: "";
-      position: absolute;
-      left: -29px;
-      top: 28px;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--primary);
-      box-shadow: 0 0 0 6px rgba(230, 106, 44, 0.15);
-    }
-
-    .entry-top {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
     .entry-date {
       display: inline-flex;
-      align-items: center;
-      gap: 8px;
       padding: 6px 12px;
       border-radius: 999px;
       background: rgba(230, 106, 44, 0.12);
-      color: var(--primary-dark);
-      font-family: "Space Grotesk", "Helvetica Neue", sans-serif;
+      color: #c24d1a;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
     }
-
     .entry h3 {
-      margin-top: 14px;
-      font-size: 1.55rem;
-      line-height: 1.1;
+      margin: 14px 0 0;
+      font-size: 1.5rem;
     }
-
     .entry-summary {
       margin-top: 10px;
       color: var(--muted);
-      font-size: 1rem;
       line-height: 1.65;
-      max-width: 48rem;
     }
-
-    .meta-row {
+    .meta-row,
+    .versions {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 18px;
+      margin-top: 16px;
     }
-
     .platform-pill,
-    .tag {
+    .tag,
+    .version-chip {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
       min-height: 34px;
       padding: 7px 12px;
       border-radius: 999px;
       font-size: 13px;
       font-weight: 600;
     }
-
-    .platform-pill.android {
-      background: rgba(47, 143, 103, 0.12);
-      color: #216949;
-    }
-
-    .platform-pill.miniprogram {
-      background: rgba(45, 108, 223, 0.12);
-      color: #1f4fa6;
-    }
-
-    .platform-pill.ios {
-      background: rgba(108, 79, 211, 0.12);
-      color: #4d34a8;
-    }
-
-    .tag {
-      background: rgba(31, 31, 29, 0.08);
-      color: var(--ink);
-    }
-
-    .versions {
-      margin-top: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
+    .platform-pill.android { background: rgba(47, 143, 103, 0.12); color: #216949; }
+    .platform-pill.miniprogram { background: rgba(45, 108, 223, 0.12); color: #1f4fa6; }
+    .platform-pill.ios { background: rgba(108, 79, 211, 0.12); color: #4d34a8; }
+    .tag { background: rgba(31, 31, 29, 0.08); color: var(--ink); }
     .version-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 12px;
       border-radius: 14px;
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid rgba(31, 31, 29, 0.08);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--line);
       color: var(--muted);
-      font-size: 14px;
     }
-
-    .version-name {
-      color: var(--ink);
-      font-size: 12px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
     .list {
       margin: 18px 0 0;
       padding-left: 18px;
       color: var(--muted);
-      font-size: 16px;
       line-height: 1.7;
     }
-
-    .list li + li {
-      margin-top: 8px;
-    }
-
     .empty {
       padding: 30px 24px;
-      text-align: center;
-      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: 22px;
       background: rgba(255, 255, 255, 0.76);
-      border-radius: var(--radius-lg);
-      border: 1px dashed rgba(31, 31, 29, 0.16);
-      font-size: 1rem;
-    }
-
-    .footer {
-      margin-top: 34px;
-      padding-top: 22px;
-      border-top: 1px solid rgba(31, 31, 29, 0.12);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 12px;
       color: var(--muted);
-      font-size: 15px;
+      text-align: center;
     }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .footer-link {
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .footer-link:hover {
-      text-decoration: underline;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(16px);
-      animation: rise 0.72s ease forwards;
-    }
-
-    .delay-1 { animation-delay: 0.08s; }
-    .delay-2 { animation-delay: 0.16s; }
-    .delay-3 { animation-delay: 0.24s; }
-
-    @keyframes rise {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     @media (max-width: 960px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .page {
-        padding: 56px 16px 72px;
-      }
-
-      .hero-main,
-      .hero-side,
-      .toolbar,
-      .entry {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-
-      h1 {
-        max-width: none;
-        font-size: clamp(2.35rem, 9vw, 3.2rem);
-      }
-
-      .timeline {
-        padding-left: 24px;
-      }
-
-      .timeline::before {
-        left: 8px;
-      }
-
-      .entry::before {
-        left: -20px;
-      }
-
-      .entry h3 {
-        font-size: 1.3rem;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-        animation: none;
-      }
-
-      .button,
-      .ghost-button,
-      .filter-button {
-        transition: none;
-      }
+      .hero { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <div class="orb one"></div>
-  <div class="orb two"></div>
-
   <main class="page">
     <section class="hero">
-      <article class="hero-card hero-main reveal">
-        <span class="badge">Yibijie Updates</span>
+      <div>
+        <div>Yibijie Updates</div>
         <h1>医笔捷功能更新</h1>
-        <p class="hero-text">
-          这里会持续记录医笔捷安卓、小程序和 iOS 的功能更新。
-          你可以直接查看最近新增了什么、优化了什么、修复了什么。
-        </p>
-        <div class="hero-actions">
-          <a class="button" href="#updates-list">查看最新更新</a>
-          <a class="ghost-button" href="./privacy-policy.html">隐私政策</a>
-        </div>
-      </article>
-
-      <aside class="hero-side reveal delay-1">
-        <section class="stats-card">
+        <p>这里会持续记录医笔捷安卓、小程序和 iOS 的功能更新。你可以直接查看最近新增了什么、优化了什么、修复了什么。</p>
+      </div>
+      <div class="hero-grid">
+        <section class="stat-card">
           <div class="stat-label">最近更新时间</div>
-          <div class="stat-value" id="latest-date">--</div>
+          <div class="stat-value" id="latest-date">2026年03月30日</div>
           <div class="stat-note">页面会把最新日期的更新自动排在最前面。</div>
         </section>
-        <section class="stats-card">
+        <section class="stat-card">
           <div class="stat-label">覆盖平台</div>
           <div class="stat-value">安卓 / 小程序 / iOS</div>
           <div class="stat-note">一个页面统一查看，不需要来回切换不同平台的公告。</div>
         </section>
-        <section class="stats-card">
-          <div class="stat-label">维护方式</div>
-          <div class="stat-value">数据驱动</div>
-          <div class="stat-note">后续只需要在页面顶部的数据列表新增一条记录即可。</div>
-        </section>
-      </aside>
+      </div>
     </section>
 
-    <section class="panel toolbar reveal delay-2" id="updates-list">
+    <section class="toolbar">
       <div class="toolbar-top">
         <div>
-          <h2 class="toolbar-title">按平台筛选更新</h2>
-          <div class="toolbar-note">默认显示全部平台，最新日期优先。</div>
+          <h2>按平台筛选更新</h2>
+          <div>默认显示全部平台，最新日期优先。</div>
         </div>
-        <div class="toolbar-note" id="result-count">0 条更新</div>
+        <div id="result-count">0 条更新</div>
       </div>
       <div class="filters" id="filters">
         <button class="filter-button is-active" type="button" data-platform-filter="all" aria-pressed="true">全部</button>
@@ -606,14 +229,6 @@
     </section>
 
     <section class="timeline" id="timeline"></section>
-
-    <footer class="footer reveal delay-3">
-      <div>医笔捷功能更新页。后续新功能会持续追加在列表顶部。</div>
-      <div class="footer-links">
-        <a class="footer-link" href="./support.html">支持页面</a>
-        <a class="footer-link" href="./privacy-policy.html">隐私政策</a>
-      </div>
-    </footer>
   </main>
 
   <script>
@@ -624,81 +239,106 @@
     };
 
     const updates = [
-      {
-        date: "2026-03-30",
-        title: "设备统计与多端体验继续优化",
-        platforms: ["android", "miniprogram", "ios"],
-        version: {
-          android: "3.2.2"
-        },
-        tags: ["优化", "修复"],
-        summary: "这次更新重点围绕设备识别、发送体验和后台查看效率展开，让多端使用更清楚、也更稳定。",
-        items: [
-          "后台设备管理支持识别小程序平台，平台归类更清晰。",
-          "终端统计文案进一步调整，避免把多端账号误解为严格物理设备数。",
-          "发送相关体验继续梳理，便于后续定位慢发送、卡顿和失败问题。",
-          "管理后台显示结构继续优化，常用信息更容易快速查看。"
-        ]
-      },
-      {
-        date: "2026-03-25",
-        title: "会员购买与恢复体验优化",
-        platforms: ["ios"],
-        tags: ["优化", "修复"],
-        summary: "这一轮主要针对 Apple 购买成功但会员状态未及时开通的问题做稳定性增强。",
-        items: [
-          "会员购买后的状态同步链路进行了补强。",
-          "恢复购买和会员状态刷新流程进一步优化。",
-          "为后续审核与线上排查补齐了更规范的购买校验路径。"
-        ]
-      },
-      {
-        date: "2026-03-18",
-        title: "模板发送和蓝牙发送体验优化",
-        platforms: ["android", "miniprogram"],
-        tags: ["新增", "优化"],
-        summary: "这次更新重点提升模板发送时的进度反馈和蓝牙发送过程的稳定性。",
-        items: [
-          "模板发送过程增加了更直观的进度反馈。",
-          "发送任务的中断、重试和异常提示更明确。",
-          "蓝牙发送节奏与分包策略继续优化，提升常见场景下的稳定性。"
-        ]
-      },
-      {
-        date: "2026-02-14",
-        title: "隐私政策与支持页面上线",
-        platforms: ["ios"],
-        tags: ["新增"],
-        summary: "为了便于用户查看合规信息和联系支持，医笔捷上线了公开的隐私政策与支持页面。",
-        items: [
-          "上线公开可访问的隐私政策页面。",
-          "补充支持联系方式和常见问题入口。",
-          "便于审核、用户查阅和后续维护。"
-        ]
-      }
-    ];
+  {
+    "date" : "2026-03-30",
+    "id" : "legacy-2026-03-30-1",
+    "items" : [
+      "后台设备管理支持识别小程序平台，平台归类更清晰。",
+      "终端统计文案进一步调整，避免把多端账号误解为严格物理设备数。",
+      "发送相关体验继续梳理，便于后续定位慢发送、卡顿和失败问题。",
+      "管理后台显示结构继续优化，常用信息更容易快速查看。"
+    ],
+    "platforms" : [
+      "android",
+      "miniprogram",
+      "ios"
+    ],
+    "summary" : "这次更新重点围绕设备识别、发送体验和后台查看效率展开，让多端使用更清楚、也更稳定。",
+    "tags" : [
+      "优化",
+      "修复"
+    ],
+    "title" : "设备统计与多端体验继续优化",
+    "version" : {
+      "android" : "3.2.2"
+    }
+  },
+  {
+    "date" : "2026-03-25",
+    "id" : "legacy-2026-03-25-1",
+    "items" : [
+      "会员购买后的状态同步链路进行了补强。",
+      "恢复购买和会员状态刷新流程进一步优化。",
+      "为后续审核与线上排查补齐了更规范的购买校验路径。"
+    ],
+    "platforms" : [
+      "ios"
+    ],
+    "summary" : "这一轮主要针对 Apple 购买成功但会员状态未及时开通的问题做稳定性增强。",
+    "tags" : [
+      "优化",
+      "修复"
+    ],
+    "title" : "会员购买与恢复体验优化",
+    "version" : {
 
-    const state = {
-      platform: "all"
-    };
+    }
+  },
+  {
+    "date" : "2026-03-18",
+    "id" : "legacy-2026-03-18-1",
+    "items" : [
+      "模板发送过程增加了更直观的进度反馈。",
+      "发送任务的中断、重试和异常提示更明确。",
+      "蓝牙发送节奏与分包策略继续优化，提升常见场景下的稳定性。"
+    ],
+    "platforms" : [
+      "android",
+      "miniprogram"
+    ],
+    "summary" : "这次更新重点提升模板发送时的进度反馈和蓝牙发送过程的稳定性。",
+    "tags" : [
+      "新增",
+      "优化"
+    ],
+    "title" : "模板发送和蓝牙发送体验优化",
+    "version" : {
 
+    }
+  },
+  {
+    "date" : "2026-02-14",
+    "id" : "legacy-2026-02-14-1",
+    "items" : [
+      "上线公开可访问的隐私政策页面。",
+      "补充支持联系方式和常见问题入口。",
+      "便于审核、用户查阅和后续维护。"
+    ],
+    "platforms" : [
+      "ios"
+    ],
+    "summary" : "为了便于用户查看合规信息和联系支持，医笔捷上线了公开的隐私政策与支持页面。",
+    "tags" : [
+      "新增"
+    ],
+    "title" : "隐私政策与支持页面上线",
+    "version" : {
+
+    }
+  }
+];
+
+    const state = { platform: "all" };
     const timelineEl = document.getElementById("timeline");
-    const latestDateEl = document.getElementById("latest-date");
     const resultCountEl = document.getElementById("result-count");
     const filterEls = Array.from(document.querySelectorAll("[data-platform-filter]"));
 
-    function toDateValue(value) {
-      return new Date(value + "T00:00:00").getTime();
-    }
-
-    function formatDate(value) {
-      const [year, month, day] = value.split("-");
-      return year + "年" + month + "月" + day + "日";
-    }
-
     function sortUpdates(items) {
       return items.slice().sort((left, right) => {
-        return toDateValue(right.date) - toDateValue(left.date);
+        if (left.date === right.date) {
+          return left.id.localeCompare(right.id);
+        }
+        return right.date.localeCompare(left.date);
       });
     }
 
@@ -706,96 +346,72 @@
       if (platform === "all") {
         return sortUpdates(items);
       }
-      return sortUpdates(items).filter((item) => item.platforms.indexOf(platform) !== -1);
+      return sortUpdates(items).filter((item) => item.platforms.includes(platform));
     }
 
-    function getLatestDate(items) {
-      const sorted = sortUpdates(items);
-      return sorted.length > 0 ? sorted[0].date : "";
+    function escapeHTML(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
     }
 
     function createPlatformPills(platforms) {
       return platforms.map((platform) => {
         const meta = platformMeta[platform];
-        if (!meta) {
-          return "";
-        }
-        return '<span class="platform-pill ' + meta.className + '">' + meta.label + "</span>";
+        return `<span class="platform-pill ${meta.className}">${meta.label}</span>`;
       }).join("");
     }
 
-    function createTagPills(tags) {
-      return (tags || []).map((tag) => {
-        return '<span class="tag">' + tag + "</span>";
-      }).join("");
+    function createTags(tags) {
+      return tags.map((tag) => `<span class="tag">${escapeHTML(tag)}</span>`).join("");
     }
 
-    function createVersionChips(version) {
-      if (!version) {
-        return "";
-      }
+    function createVersions(version) {
       const order = ["android", "miniprogram", "ios"];
-      const chips = order
-        .filter((key) => version[key])
-        .map((key) => {
-          const meta = platformMeta[key];
-          return (
-            '<span class="version-chip">' +
-            '<span class="version-name">' + meta.label + "</span>" +
-            "<span>" + version[key] + "</span>" +
-            "</span>"
-          );
-        });
-
-      if (chips.length === 0) {
-        return "";
-      }
-
-      return '<div class="versions">' + chips.join("") + "</div>";
+      const chips = order.filter((key) => version[key]).map((key) => {
+        const label = platformMeta[key].label;
+        return `<span class="version-chip">${label} ${escapeHTML(version[key])}</span>`;
+      });
+      return chips.length ? `<div class="versions">${chips.join("")}</div>` : "";
     }
 
     function createItems(items) {
-      return '<ul class="list">' + items.map((item) => "<li>" + item + "</li>").join("") + "</ul>";
+      return `<ul class="list">${items.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>`;
     }
 
     function renderUpdates(items) {
-      if (items.length === 0) {
+      if (!items.length) {
         timelineEl.innerHTML = '<div class="empty">当前筛选条件下还没有更新记录。</div>';
         return;
       }
 
-      timelineEl.innerHTML = items.map((item, index) => {
-        const delayClass = index < 3 ? " reveal delay-" + (index + 1) : " reveal";
-        return (
-          '<article class="entry' + delayClass + '">' +
-            '<div class="entry-top">' +
-              '<div class="entry-date">' + formatDate(item.date) + "</div>" +
-            "</div>" +
-            "<h3>" + item.title + "</h3>" +
-            '<p class="entry-summary">' + item.summary + "</p>" +
-            '<div class="meta-row">' +
-              createPlatformPills(item.platforms) +
-              createTagPills(item.tags || []) +
-            "</div>" +
-            createVersionChips(item.version) +
-            createItems(item.items || []) +
-          "</article>"
-        );
-      }).join("");
+      timelineEl.innerHTML = items.map((item) => `
+        <article class="entry">
+          <div class="entry-date">${escapeHTML(item.date.replace(/-/g, "年").replace(/-(?=\d{2}$)/, "月") + "日")}</div>
+          <h3>${escapeHTML(item.title)}</h3>
+          <p class="entry-summary">${escapeHTML(item.summary)}</p>
+          <div class="meta-row">${createPlatformPills(item.platforms)}${createTags(item.tags)}</div>
+          ${createVersions(item.version || {})}
+          ${createItems(item.items || [])}
+        </article>
+      `).join("");
     }
 
     function updateFilterButtons() {
       filterEls.forEach((button) => {
-        const isActive = button.getAttribute("data-platform-filter") === state.platform;
-        button.classList.toggle("is-active", isActive);
-        button.setAttribute("aria-pressed", isActive ? "true" : "false");
+        const active = button.getAttribute("data-platform-filter") === state.platform;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", active ? "true" : "false");
       });
     }
 
     function renderPage() {
-      const visibleUpdates = filterUpdates(updates, state.platform);
-      renderUpdates(visibleUpdates);
-      resultCountEl.textContent = visibleUpdates.length + " 条更新";
+      const visible = filterUpdates(updates, state.platform);
+      resultCountEl.textContent = `${visible.length} 条更新`;
+      renderUpdates(visible);
       updateFilterButtons();
     }
 
@@ -806,7 +422,6 @@
       });
     });
 
-    latestDateEl.textContent = formatDate(getLatestDate(updates));
     renderPage();
   </script>
 </body>
